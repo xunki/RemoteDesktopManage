@@ -105,9 +105,9 @@
             this.label1.ForeColor = System.Drawing.Color.Red;
             this.label1.Location = new System.Drawing.Point(157, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 14);
+            this.label1.Size = new System.Drawing.Size(119, 14);
             this.label1.TabIndex = 24;
-            this.label1.Text = "零表示无端口号";
+            this.label1.Text = "零表示默认端口号";
             // 
             // txtIp
             // 
@@ -282,12 +282,12 @@
             this.删除ToolStripMenuItem});
             this.menuGrid.Name = "menu";
             this.menuGrid.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuGrid.Size = new System.Drawing.Size(99, 48);
+            this.menuGrid.Size = new System.Drawing.Size(101, 48);
             // 
             // 编辑ToolStripMenuItem
             // 
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
-            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.编辑ToolStripMenuItem.Text = "编辑";
             this.编辑ToolStripMenuItem.Click += new System.EventHandler(this.编辑ToolStripMenuItem_Click);
             // 
@@ -296,13 +296,13 @@
             this.删除ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.确认无误删除ToolStripMenuItem});
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.删除ToolStripMenuItem.Text = "删除";
             // 
             // 确认无误删除ToolStripMenuItem
             // 
             this.确认无误删除ToolStripMenuItem.Name = "确认无误删除ToolStripMenuItem";
-            this.确认无误删除ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.确认无误删除ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.确认无误删除ToolStripMenuItem.Text = "确认无误，删除！";
             this.确认无误删除ToolStripMenuItem.Click += new System.EventHandler(this.确认无误删除ToolStripMenuItem_Click);
             // 

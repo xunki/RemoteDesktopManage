@@ -20,3 +20,8 @@ D:\个人习惯\工具\经验\自己写的小工具\远程桌面管理器\远程
 D:\个人习惯\工具\经验\自己写的小工具\远程桌面管理器\远程桌面管理器\bin\Debug\AxInterop.MSTSCLib.dll
 D:\个人习惯\工具\经验\自己写的小工具\远程桌面管理器\远程桌面管理器\obj\Debug\远程桌面管理器.exe
 D:\个人习惯\工具\经验\自己写的小工具\远程桌面管理器\远程桌面管理器\obj\Debug\远程桌面管理器.pdb
+G:\工作存档\自己\远程桌面管理器\obj\Debug\Interop.MSTSCLib.dll
+G:\工作存档\自己\远程桌面管理器\obj\Debug\AxInterop.MSTSCLib.dll
+G:\工作存档\自己\远程桌面管理器\obj\Debug\远程桌面管理器.csproj.ResolveComReference.cache
+G:\工作存档\自己\远程桌面管理器\obj\Debug\远程桌面管理器.exe
+G:\工作存档\自己\远程桌面管理器\obj\Debug\远程桌面管理器.pdb
