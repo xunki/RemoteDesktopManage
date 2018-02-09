@@ -15,7 +15,7 @@
         public int Sort { get; set; }
         public int ParentId { get; set; }
 
-
+        public string RemoteProgram { get; set; }
 
     }
 }

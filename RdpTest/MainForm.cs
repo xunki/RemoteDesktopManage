@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -40,10 +41,10 @@ namespace RdpTest
             panelBody.Controls.Clear(); //清空原有
 
             var hosts = (List<RemoteHost>)Db.Connection.Query<RemoteHost>(
-                "SELECT Id,Name,Address,Port,User,Pwd,Sort,ParentId FROM RemoteHost");
+                "SELECT Id,Name,Address,Port,User,Pwd,Sort,ParentId,RemoteProgram FROM RemoteHost");
 
             //创建分组
-            foreach (var hostGroup in hosts.Where(x => x.ParentId == 0).OrderBy(x => x.Sort))
+            foreach (var hostGroup in hosts.Where(x => x.ParentId == 0).OrderByDescending(x => x.Sort))
             {
                 //建立分组
                 var hostGroupBox = new HostGroupBox { Dock = DockStyle.Top, Height = 100, Text = hostGroup.Name };
@@ -99,6 +100,34 @@ namespace RdpTest
             rdpClient.UserName = host.User;
             rdpClient.AdvancedSettings2.ClearTextPassword = host.Pwd;
 
+            //进运行远程程序模式
+            if (!string.IsNullOrEmpty(host.RemoteProgram))
+            {
+                rdpClient.RemoteProgram2.RemoteProgramMode = true;
+                rdpClient.Width = Screen.PrimaryScreen.Bounds.Width;
+                rdpClient.Height = Screen.PrimaryScreen.Bounds.Height;
+                rdpClient.OnLoginComplete += (o, args) =>
+                {
+                    rdpClient.RemoteProgram2.ServerStartProgram(host.RemoteProgram, "", "%SYSTEMROOT%", false, "", false);
+                    rdpClient.OnRemoteProgramResult += (o1, args1) =>
+                    {
+                        if (args1.lError != RemoteProgramResult.remoteAppResultOk)
+                        {
+                            rdpClient.Dispose();
+                            MessageBox.Show(args1.lError.ToString(), "打开远程程序失败");
+                        }
+                    };
+
+                    tabMain.TabPages.Remove(page);
+                };
+            }
+
+            //rdpClient.RemoteProgram2.RemoteProgramMode = true;
+            //rdpClient.OnLoginComplete += (o, args) =>
+            //{
+            //    rdpClient.RemoteProgram2.ServerStartProgram("cmd", "", "%SYSTEMROOT%", false, "", false);
+            //    tabMain.TabPages.Remove(page);
+            //};
 
             /* 因为分辨率比例问题，缩放效果并不怎么样
                rdpClient.Width = Screen.PrimaryScreen.Bounds.Width;
@@ -116,7 +145,6 @@ namespace RdpTest
             //连接远程桌面
             rdpClient.Connect();
         }
-
 
         #region 菜单按钮
         private void btnChangeStyle_Click(object sender, EventArgs e)

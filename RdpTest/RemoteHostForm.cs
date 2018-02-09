@@ -59,8 +59,16 @@ namespace RdpTest
             numPort.Value = RemoteHost.Port;
             txtUser.Text = RemoteHost.User;
             txtPwd.Text = RemoteHost.Pwd;
+            txtRemoteProgram.Text = RemoteHost.RemoteProgram;
+
+            lbCopy.Visible = true; //显示复制按钮
         }
 
+        private void lbCopy_Click(object sender, EventArgs e)
+        {
+            RemoteHost = null;
+            lbCopy.Visible = false; 
+        }
 
         private void cbIsParent_CheckedChanged(object sender, System.EventArgs e)
         {
@@ -110,16 +118,19 @@ namespace RdpTest
                 host.Port = Convert.ToInt32(numPort.Value);
                 host.User = txtUser.Text.Trim();
                 host.Pwd = txtPwd.Text;
+                host.RemoteProgram = txtRemoteProgram.Text.Trim();
             }
 
             Db.Connection.Execute(
                 IsModify
-                    ? "UPDATE RemoteHost SET Name=@Name,Address=@Address,Port=@Port,User=@User,Pwd=@Pwd,Sort=@Sort,ParentId=@ParentId WHERE Id=" + RemoteHost.Id
-                    : "INSERT INTO RemoteHost(Name,Address,Port,User,Pwd,Sort,ParentId) VALUES(@Name,@Address,@Port,@User,@Pwd,@Sort,@ParentId)",
+                    ? "UPDATE RemoteHost SET Name=@Name,Address=@Address,Port=@Port,User=@User,Pwd=@Pwd,Sort=@Sort,ParentId=@ParentId,RemoteProgram=@RemoteProgram WHERE Id=" + RemoteHost.Id
+                    : "INSERT INTO RemoteHost(Name,Address,Port,User,Pwd,Sort,ParentId,RemoteProgram) VALUES(@Name,@Address,@Port,@User,@Pwd,@Sort,@ParentId,@RemoteProgram)",
                 host);
 
 
             DialogResult = DialogResult.OK;
         }
+
+ 
     }
 }

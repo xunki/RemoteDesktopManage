@@ -49,6 +49,9 @@
             this.pnlBottom = new MetroFramework.Controls.MetroPanel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.pnlHost = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
+            this.txtRemoteProgram = new System.Windows.Forms.TextBox();
+            this.lbCopy = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numSort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -61,7 +64,7 @@
             this.chIsParent.DisplayStatus = false;
             this.chIsParent.Location = new System.Drawing.Point(108, 14);
             this.chIsParent.Name = "chIsParent";
-            this.chIsParent.Size = new System.Drawing.Size(76, 24);
+            this.chIsParent.Size = new System.Drawing.Size(75, 24);
             this.chIsParent.TabIndex = 0;
             this.chIsParent.Text = "~StatusOff";
             this.chIsParent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -82,7 +85,7 @@
             // 
             this.txtName.Location = new System.Drawing.Point(62, 60);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(122, 21);
+            this.txtName.Size = new System.Drawing.Size(121, 21);
             this.txtName.TabIndex = 11;
             // 
             // metroLabel3
@@ -200,7 +203,7 @@
             // 
             this.txtAddress.Location = new System.Drawing.Point(62, 8);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(122, 21);
+            this.txtAddress.Size = new System.Drawing.Size(121, 21);
             this.txtAddress.TabIndex = 27;
             // 
             // txtPwd
@@ -215,7 +218,7 @@
             // 
             this.txtUser.Location = new System.Drawing.Point(62, 51);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(123, 21);
+            this.txtUser.Size = new System.Drawing.Size(121, 21);
             this.txtUser.TabIndex = 30;
             this.txtUser.Text = "Administrator";
             // 
@@ -246,9 +249,9 @@
             this.pnlBottom.HorizontalScrollbarBarColor = true;
             this.pnlBottom.HorizontalScrollbarHighlightOnWheel = false;
             this.pnlBottom.HorizontalScrollbarSize = 10;
-            this.pnlBottom.Location = new System.Drawing.Point(20, 235);
+            this.pnlBottom.Location = new System.Drawing.Point(20, 292);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(396, 63);
+            this.pnlBottom.Size = new System.Drawing.Size(401, 64);
             this.pnlBottom.TabIndex = 20;
             this.pnlBottom.VerticalScrollbarBarColor = true;
             this.pnlBottom.VerticalScrollbarHighlightOnWheel = false;
@@ -269,7 +272,7 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(20, 60);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(396, 95);
+            this.metroPanel1.Size = new System.Drawing.Size(401, 95);
             this.metroPanel1.TabIndex = 21;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -277,6 +280,8 @@
             // 
             // pnlHost
             // 
+            this.pnlHost.Controls.Add(this.metroLabel8);
+            this.pnlHost.Controls.Add(this.txtRemoteProgram);
             this.pnlHost.Controls.Add(this.metroLabel7);
             this.pnlHost.Controls.Add(this.metroLabel5);
             this.pnlHost.Controls.Add(this.metroLabel6);
@@ -291,17 +296,47 @@
             this.pnlHost.HorizontalScrollbarSize = 10;
             this.pnlHost.Location = new System.Drawing.Point(20, 155);
             this.pnlHost.Name = "pnlHost";
-            this.pnlHost.Size = new System.Drawing.Size(396, 80);
+            this.pnlHost.Size = new System.Drawing.Size(401, 137);
             this.pnlHost.TabIndex = 22;
             this.pnlHost.VerticalScrollbarBarColor = true;
             this.pnlHost.VerticalScrollbarHighlightOnWheel = false;
             this.pnlHost.VerticalScrollbarSize = 10;
             // 
+            // metroLabel8
+            // 
+            this.metroLabel8.AutoSize = true;
+            this.metroLabel8.Location = new System.Drawing.Point(26, 94);
+            this.metroLabel8.Name = "metroLabel8";
+            this.metroLabel8.Size = new System.Drawing.Size(79, 19);
+            this.metroLabel8.TabIndex = 38;
+            this.metroLabel8.Text = "仅启动程序";
+            // 
+            // txtRemoteProgram
+            // 
+            this.txtRemoteProgram.Location = new System.Drawing.Point(108, 94);
+            this.txtRemoteProgram.Name = "txtRemoteProgram";
+            this.txtRemoteProgram.Size = new System.Drawing.Size(265, 21);
+            this.txtRemoteProgram.TabIndex = 36;
+            // 
+            // lbCopy
+            // 
+            this.lbCopy.AutoSize = true;
+            this.lbCopy.ForeColor = System.Drawing.Color.Blue;
+            this.lbCopy.Location = new System.Drawing.Point(270, 28);
+            this.lbCopy.Name = "lbCopy";
+            this.lbCopy.Size = new System.Drawing.Size(45, 19);
+            this.lbCopy.TabIndex = 23;
+            this.lbCopy.Text = "[复制]";
+            this.lbCopy.UseCustomForeColor = true;
+            this.lbCopy.Visible = false;
+            this.lbCopy.Click += new System.EventHandler(this.lbCopy_Click);
+            // 
             // RemoteHostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 318);
+            this.ClientSize = new System.Drawing.Size(441, 376);
+            this.Controls.Add(this.lbCopy);
             this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.pnlHost);
             this.Controls.Add(this.metroPanel1);
@@ -347,5 +382,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel4;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroPanel pnlHost;
+        private MetroFramework.Controls.MetroLabel metroLabel8;
+        private System.Windows.Forms.TextBox txtRemoteProgram;
+        private MetroFramework.Controls.MetroLabel lbCopy;
     }
 }
