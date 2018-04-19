@@ -175,19 +175,56 @@ namespace RdpTest
         #region 页签控制
         private void tabMain_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            var index = InTabPageHead(e.Location);
+            if (index > 0)
             {
-                for (int i = 1, count = tabMain.TabPages.Count; i < count; i++) //排除首页
+                tabMain.SelectedIndex = index;
+
+                if (e.Button == MouseButtons.Right)
+                    tabMain.ContextMenuStrip = menuTabPage;  //弹出菜单
+                else
+                    _tabMoving = true;
+            }
+        }
+
+        /// <summary>
+        /// 正在移动 TabPage 位置
+        /// </summary>
+        private bool _tabMoving;
+        private void tabMain_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_tabMoving)
+            {
+                var index = InTabPageHead(e.Location);
+                if (index > 0 && tabMain.SelectedIndex != index)
                 {
-                    var tp = tabMain.TabPages[i];
-                    if (tabMain.GetTabRect(i).Contains(new Point(e.X, e.Y)))
-                    {
-                        tabMain.SelectedTab = tp;
-                        tabMain.ContextMenuStrip = menuTabPage;  //弹出菜单
-                        break;
-                    }
+                    var currPage = tabMain.SelectedTab;
+
+                    tabMain.TabPages.Remove(currPage);
+                    tabMain.TabPages.Insert(index, currPage);
+                    tabMain.SelectedTab = currPage;
                 }
             }
+        }
+
+        private int InTabPageHead(Point location)
+        {
+            for (int i = 1, count = tabMain.TabPages.Count; i < count; i++) //排除首页
+            {
+                var rect = tabMain.GetTabRect(i);
+                var offset = rect.Width / 4;
+                rect = new Rectangle(rect.X - offset / 2, rect.Y, rect.Width - offset, rect.Height);
+                if (rect.Contains(location))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private void tabMain_MouseUp(object sender, MouseEventArgs e)
+        {
+            _tabMoving = false;
         }
 
         private void MainForm_MouseLeave(object sender, EventArgs e)
@@ -253,6 +290,7 @@ namespace RdpTest
             parent.Parent.Controls.Remove(parent);
             _currSelectHost = null;
         }
+
         #endregion
 
     }

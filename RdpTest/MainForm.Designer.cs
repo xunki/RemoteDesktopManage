@@ -64,6 +64,8 @@
             this.tabMain.TabIndex = 0;
             this.tabMain.UseSelectable = true;
             this.tabMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabMain_MouseDown);
+            this.tabMain.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabMain_MouseMove);
+            this.tabMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabMain_MouseUp);
             // 
             // pageMain
             // 
