@@ -175,7 +175,7 @@ namespace RdpTest
         #region 页签控制
         private void tabMain_MouseDown(object sender, MouseEventArgs e)
         {
-            var index = InTabPageHead(e.Location);
+            var index = InTabPageHead(e.Location, false);
             if (index > 0)
             {
                 tabMain.SelectedIndex = index;
@@ -195,25 +195,31 @@ namespace RdpTest
         {
             if (_tabMoving)
             {
-                var index = InTabPageHead(e.Location);
+                var index = InTabPageHead(e.Location, true);
                 if (index > 0 && tabMain.SelectedIndex != index)
                 {
                     var currPage = tabMain.SelectedTab;
 
+                    tabMain.Visible = false;
                     tabMain.TabPages.Remove(currPage);
                     tabMain.TabPages.Insert(index, currPage);
                     tabMain.SelectedTab = currPage;
+                    tabMain.Visible = true;
                 }
             }
         }
 
-        private int InTabPageHead(Point location)
+        private int InTabPageHead(Point location, bool zoomRange)
         {
             for (int i = 1, count = tabMain.TabPages.Count; i < count; i++) //排除首页
             {
                 var rect = tabMain.GetTabRect(i);
-                var offset = rect.Width / 4;
-                rect = new Rectangle(rect.X - offset / 2, rect.Y, rect.Width - offset, rect.Height);
+                if (zoomRange) //缩小判定范围
+                {
+                    var offset = rect.Width / 4;
+                    rect = new Rectangle(rect.X - offset / 2, rect.Y, rect.Width - offset, rect.Height);
+                }
+
                 if (rect.Contains(location))
                 {
                     return i;
