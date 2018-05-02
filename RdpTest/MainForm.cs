@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,22 +19,23 @@ namespace RdpTest
         public MainForm()
         {
             InitializeComponent();
-        }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
             //设置主题
             StyleManager = metroStyleManager;
 
             var style = (MetroColorStyle)Db.Connection.QueryFirstOrDefault<int>("SELECT FValue FROM MyConfig WHERE FKey='Style'");
             metroStyleManager.Style = style;
+        }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             //异步加载远程桌面配置
             BeginInvoke(new Action(LoadHostConfig));
         }
 
         private void LoadHostConfig()
         {
+            panelBody.Visible = false;
             panelBody.Controls.Clear(); //清空原有
 
             var hosts = (List<RemoteHost>)Db.Connection.Query<RemoteHost>(
@@ -71,6 +69,7 @@ namespace RdpTest
                     hostGroupBox.AddControl(title);
                 }
             }
+            panelBody.Visible = true;
         }
 
         void ConnectRemoteHost(object sender, EventArgs e)
