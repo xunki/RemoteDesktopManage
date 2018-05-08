@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,22 +19,23 @@ namespace RdpTest
         public MainForm()
         {
             InitializeComponent();
-        }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
             //设置主题
             StyleManager = metroStyleManager;
 
             var style = (MetroColorStyle)Db.Connection.QueryFirstOrDefault<int>("SELECT FValue FROM MyConfig WHERE FKey='Style'");
             metroStyleManager.Style = style;
+        }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             //异步加载远程桌面配置
             BeginInvoke(new Action(LoadHostConfig));
         }
 
         private void LoadHostConfig()
         {
+            panelBody.Visible = false;
             panelBody.Controls.Clear(); //清空原有
 
             var hosts = (List<RemoteHost>)Db.Connection.Query<RemoteHost>(
@@ -71,6 +69,7 @@ namespace RdpTest
                     hostGroupBox.AddControl(title);
                 }
             }
+            panelBody.Visible = true;
         }
 
         void ConnectRemoteHost(object sender, EventArgs e)
@@ -183,7 +182,10 @@ namespace RdpTest
                 if (e.Button == MouseButtons.Right)
                     tabMain.ContextMenuStrip = menuTabPage;  //弹出菜单
                 else
+                {
                     _tabMoving = true;
+                    _tabBeforeMoveX = e.X;
+                }
             }
         }
 
@@ -191,12 +193,28 @@ namespace RdpTest
         /// 正在移动 TabPage 位置
         /// </summary>
         private bool _tabMoving;
+        private int _tabBeforeMoveX;
+
         private void tabMain_MouseMove(object sender, MouseEventArgs e)
         {
             if (_tabMoving)
             {
                 var index = InTabPageHead(e.Location, true);
-                if (index > 0 && tabMain.SelectedIndex != index)
+                if (index <= 0)
+                {
+                    Cursor.Current = Cursors.No;
+                    return;
+                }
+
+                var offset = e.X - _tabBeforeMoveX;
+                if (offset == 0)
+                {
+                    Cursor.Current = Cursors.Default;
+                    return;
+                }
+
+                Cursor.Current = Cursors.NoMoveHoriz;
+                if (tabMain.SelectedIndex != index)
                 {
                     var currPage = tabMain.SelectedTab;
 
@@ -217,7 +235,7 @@ namespace RdpTest
                 if (zoomRange) //缩小判定范围
                 {
                     var offset = rect.Width / 4;
-                    rect = new Rectangle(rect.X - offset / 2, rect.Y, rect.Width - offset, rect.Height);
+                    rect = new Rectangle(rect.X + offset / 2, rect.Y, rect.Width - offset, rect.Height);
                 }
 
                 if (rect.Contains(location))
@@ -231,6 +249,7 @@ namespace RdpTest
         private void tabMain_MouseUp(object sender, MouseEventArgs e)
         {
             _tabMoving = false;
+            Cursor.Current = Cursors.Default;
         }
 
         private void MainForm_MouseLeave(object sender, EventArgs e)
