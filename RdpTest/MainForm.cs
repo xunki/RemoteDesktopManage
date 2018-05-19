@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -168,6 +169,11 @@ namespace RdpTest
             var hostForm = new RemoteHostForm { StyleManager = metroStyleManager };
             if (hostForm.ShowDialog() == DialogResult.OK)
                 LoadHostConfig();
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/wang9563/RemoteDesktopManage");
         }
         #endregion
 

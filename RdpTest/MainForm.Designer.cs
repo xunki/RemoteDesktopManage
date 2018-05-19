@@ -44,6 +44,7 @@
             this.menuTabPage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tmiCloseHost = new System.Windows.Forms.ToolStripMenuItem();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
+            this.btnAbout = new MetroFramework.Controls.MetroLink();
             this.tabMain.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.pnlSetting.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             // pnlSetting
             // 
+            this.pnlSetting.Controls.Add(this.btnAbout);
             this.pnlSetting.Controls.Add(this.btnAddRemoteHost);
             this.pnlSetting.Controls.Add(this.btnRefresh);
             this.pnlSetting.Controls.Add(this.btnChangeStyle);
@@ -200,6 +202,18 @@
             // 
             this.metroStyleManager.Owner = this;
             // 
+            // btnAbout
+            // 
+            this.btnAbout.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAbout.Location = new System.Drawing.Point(268, 0);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(67, 37);
+            this.btnAbout.TabIndex = 5;
+            this.btnAbout.Text = "关于";
+            this.btnAbout.UseSelectable = true;
+            this.btnAbout.UseVisualStyleBackColor = true;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -240,5 +254,6 @@
         private System.Windows.Forms.ContextMenuStrip menuTabPage;
         private System.Windows.Forms.ToolStripMenuItem tmiCloseHost;
         private MetroFramework.Components.MetroStyleManager metroStyleManager;
+        private MetroFramework.Controls.MetroLink btnAbout;
     }
 }
