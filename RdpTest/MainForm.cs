@@ -31,10 +31,13 @@ namespace RdpTest
         private void MainForm_Load(object sender, EventArgs e)
         {
             //异步加载远程桌面配置
-            BeginInvoke(new Action(LoadHostConfig));
+            BeginInvoke(new Action(LoadHosts));
         }
 
-        private void LoadHostConfig()
+        /// <summary>
+        /// 加载所以远程桌面配置
+        /// </summary>
+        private void LoadHosts()
         {
             panelBody.Visible = false;
             panelBody.Controls.Clear(); //清空原有
@@ -73,7 +76,10 @@ namespace RdpTest
             panelBody.Visible = true;
         }
 
-        void ConnectRemoteHost(object sender, EventArgs e)
+        /// <summary>
+        /// 连接远程桌面
+        /// </summary>
+        private void ConnectRemoteHost(object sender, EventArgs e)
         {
             var host = (RemoteHost)((MetroTile)sender).Tag;
 
@@ -100,8 +106,12 @@ namespace RdpTest
             rdpClient.UserName = host.User;
             rdpClient.AdvancedSettings2.ClearTextPassword = host.Pwd;
 
-            //进运行远程程序模式
-            if (!string.IsNullOrEmpty(host.RemoteProgram))
+            if (string.IsNullOrEmpty(host.RemoteProgram)) //普通远程桌面模式
+            {
+                //映射键盘
+                rdpClient.SecuredSettings3.KeyboardHookMode = 1;
+            }
+            else //运行远程程序模式
             {
                 rdpClient.RemoteProgram2.RemoteProgramMode = true;
                 rdpClient.Width = Screen.PrimaryScreen.Bounds.Width;
@@ -122,13 +132,6 @@ namespace RdpTest
                 };
             }
 
-            //rdpClient.RemoteProgram2.RemoteProgramMode = true;
-            //rdpClient.OnLoginComplete += (o, args) =>
-            //{
-            //    rdpClient.RemoteProgram2.ServerStartProgram("cmd", "", "%SYSTEMROOT%", false, "", false);
-            //    tabMain.TabPages.Remove(page);
-            //};
-
             /* 因为分辨率比例问题，缩放效果并不怎么样
                rdpClient.Width = Screen.PrimaryScreen.Bounds.Width;
                rdpClient.Height = Screen.PrimaryScreen.Bounds.Height;
@@ -146,7 +149,17 @@ namespace RdpTest
             rdpClient.Connect();
         }
 
+        private AxMsRdpClient9NotSafeForScripting GetHost(int pageIndex)
+        {
+            var page = tabMain.TabPages[pageIndex];
+            return (AxMsRdpClient9NotSafeForScripting)page.Controls[0];
+        }
+
+
         #region 菜单按钮
+        /// <summary>
+        /// 切换主题
+        /// </summary>
         private void btnChangeStyle_Click(object sender, EventArgs e)
         {
             var nextStyle = ((int)metroStyleManager.Style + 1) % 14;
@@ -159,25 +172,34 @@ namespace RdpTest
             Refresh();
         }
 
+        /// <summary>
+        /// 刷新
+        /// </summary>
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadHostConfig();
+            LoadHosts();
         }
 
+        /// <summary>
+        /// 添加主机
+        /// </summary>
         private void btnAddRemoteHost_Click(object sender, EventArgs e)
         {
             var hostForm = new RemoteHostForm { StyleManager = metroStyleManager };
             if (hostForm.ShowDialog() == DialogResult.OK)
-                LoadHostConfig();
+                LoadHosts();
         }
 
+        /// <summary>
+        /// 关于
+        /// </summary>
         private void btnAbout_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/wang9563/RemoteDesktopManage");
         }
         #endregion
 
-        #region 页签控制
+        #region 页签控制 [拖动/关闭]
         private void tabMain_MouseDown(object sender, MouseEventArgs e)
         {
             var index = InTabPageHead(e.Location, false);
@@ -185,9 +207,9 @@ namespace RdpTest
             {
                 tabMain.SelectedIndex = index;
 
-                if (e.Button == MouseButtons.Right)
-                    tabMain.ContextMenuStrip = menuTabPage;  //弹出菜单
-                else
+                if (e.Button == MouseButtons.Right) //右击，弹出菜单
+                    tabMain.ContextMenuStrip = menuTabPage;
+                else if (e.Button == MouseButtons.Left) //左击，进行拖动判定
                 {
                     _tabMoving = true;
                     _tabBeforeMoveX = e.X;
@@ -254,8 +276,18 @@ namespace RdpTest
 
         private void tabMain_MouseUp(object sender, MouseEventArgs e)
         {
-            _tabMoving = false;
-            Cursor.Current = Cursors.Default;
+            if (e.Button == MouseButtons.Left) //完成拖动
+            {
+                _tabMoving = false;
+                Cursor.Current = Cursors.Default;
+            }
+            else if (e.Button == MouseButtons.Middle) //关闭页签
+            {
+                var index = InTabPageHead(e.Location, true);
+                if (index <= 0) return;
+
+                CloseHost(index);
+            }
         }
 
         private void MainForm_MouseLeave(object sender, EventArgs e)
@@ -265,15 +297,20 @@ namespace RdpTest
 
         private void tmiCloseHost_Click(object sender, EventArgs e)
         {
-            var next = tabMain.SelectedIndex - 1;
-            var host = (AxMsRdpClient9NotSafeForScripting)tabMain.SelectedTab.Controls[0];
+            CloseHost(tabMain.SelectedIndex);
+        }
+
+        private void CloseHost(int pageIndex)
+        {
+            var page = tabMain.TabPages[pageIndex];
+            var host = GetHost(pageIndex);
 
             if (host.Connected == 1)
                 host.Disconnect();
             host.Dispose();
-            tabMain.SelectedTab.Dispose();
+            tabMain.TabPages.Remove(page);
 
-            tabMain.SelectedIndex = next;
+            tabMain.SelectedIndex = pageIndex - (pageIndex == tabMain.TabPages.Count ? 1 : 0);
         }
         #endregion
 
@@ -296,7 +333,7 @@ namespace RdpTest
             var hostForm = new RemoteHostForm { StyleManager = metroStyleManager, RemoteHost = host };
 
             if (hostForm.ShowDialog() == DialogResult.OK)
-                LoadHostConfig();
+                LoadHosts();
         }
         private void tmiDeleteHost_Click(object sender, EventArgs e)
         {
@@ -323,6 +360,33 @@ namespace RdpTest
         }
 
         #endregion
+
+        #region 界面切换与唤醒 [切换映射键盘]
+        private int _keyboardHookModeChanged;
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            if (_keyboardHookModeChanged == 1) return;
+            _keyboardHookModeChanged = 1;
+            if (tabMain.SelectedIndex <= 0) return;
+
+            var host = GetHost(tabMain.SelectedIndex);
+            if (host.RemoteProgram2.RemoteProgramMode) return;
+
+            host.SecuredSettings3.KeyboardHookMode = 1; //在远程服务器上应用组合键。
+        }
+        private void MainForm_Deactivate(object sender, EventArgs e)
+        {
+            if (_keyboardHookModeChanged == 2) return;
+            _keyboardHookModeChanged = 2;
+            if (tabMain.SelectedIndex <= 0) return;
+
+            var host = GetHost(tabMain.SelectedIndex);
+            if (host.RemoteProgram2.RemoteProgramMode) return;
+
+            host.SecuredSettings3.KeyboardHookMode = 2; //仅当客户端以全屏模式运行时才将组合键应用于远程服务器。这是默认值。
+        }
+        #endregion
+
 
     }
 }

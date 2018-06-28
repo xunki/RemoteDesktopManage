@@ -33,6 +33,7 @@
             this.pageMain = new System.Windows.Forms.TabPage();
             this.panelBody = new System.Windows.Forms.Panel();
             this.pnlSetting = new MetroFramework.Controls.MetroPanel();
+            this.btnAbout = new MetroFramework.Controls.MetroLink();
             this.btnAddRemoteHost = new MetroFramework.Controls.MetroLink();
             this.btnRefresh = new MetroFramework.Controls.MetroLink();
             this.btnChangeStyle = new MetroFramework.Controls.MetroTile();
@@ -44,7 +45,6 @@
             this.menuTabPage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tmiCloseHost = new System.Windows.Forms.ToolStripMenuItem();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
-            this.btnAbout = new MetroFramework.Controls.MetroLink();
             this.tabMain.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.pnlSetting.SuspendLayout();
@@ -106,6 +106,18 @@
             this.pnlSetting.VerticalScrollbarBarColor = true;
             this.pnlSetting.VerticalScrollbarHighlightOnWheel = false;
             this.pnlSetting.VerticalScrollbarSize = 10;
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAbout.Location = new System.Drawing.Point(268, 0);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(67, 37);
+            this.btnAbout.TabIndex = 5;
+            this.btnAbout.Text = "关于";
+            this.btnAbout.UseSelectable = true;
+            this.btnAbout.UseVisualStyleBackColor = true;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // btnAddRemoteHost
             // 
@@ -202,18 +214,6 @@
             // 
             this.metroStyleManager.Owner = this;
             // 
-            // btnAbout
-            // 
-            this.btnAbout.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnAbout.Location = new System.Drawing.Point(268, 0);
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(67, 37);
-            this.btnAbout.TabIndex = 5;
-            this.btnAbout.Text = "关于";
-            this.btnAbout.UseSelectable = true;
-            this.btnAbout.UseVisualStyleBackColor = true;
-            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -225,6 +225,8 @@
             this.Style = MetroFramework.MetroColorStyle.Default;
             this.Text = "远程桌面管理";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
+            this.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
             this.tabMain.ResumeLayout(false);

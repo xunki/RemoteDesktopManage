@@ -67,7 +67,9 @@ namespace RdpTest
         private void lbCopy_Click(object sender, EventArgs e)
         {
             RemoteHost = null;
-            lbCopy.Visible = false; 
+            lbCopy.Visible = false;
+            lbStatus.Text = "[新增]";
+            chIsParent.Enabled = true;
         }
 
         private void cbIsParent_CheckedChanged(object sender, System.EventArgs e)
