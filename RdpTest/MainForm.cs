@@ -385,6 +385,14 @@ namespace RdpTest
 
             host.SecuredSettings3.KeyboardHookMode = 2; //仅当客户端以全屏模式运行时才将组合键应用于远程服务器。这是默认值。
         }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            for (var count = tabMain.TabPages.Count; count > 1;)
+            {
+                CloseHost(--count);
+            }
+        }
         #endregion
 
 
