@@ -27,7 +27,7 @@ MSTSC 还有一种说法，Microsoft Telnet Screen Control ，即“微软远程
 
 再次点击点击左下角的 `添加远程主机` 来新建您的第一个连接，假定您已熟悉 MSTSC 相关设置，那么下面这个配置也难不住您了
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/58049960.jpg)
+![](http://olhzls0dg.bkt.clouddn.com/18-5-8/23527136.jpg)
 
 ![](http://olhzls0dg.bkt.clouddn.com/18-5-8/75694214.jpg)
 
