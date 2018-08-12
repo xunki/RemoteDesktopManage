@@ -142,6 +142,7 @@ namespace RdpTest
             ((IMsRdpClientNonScriptable5)rdpClient.GetOcx()).PromptForCredentials = false;
             rdpClient.AdvancedSettings9.EnableCredSspSupport = true;
             rdpClient.ColorDepth = 16;
+            rdpClient.AdvancedSettings9.RedirectDrives = true; //共享本地磁盘
             rdpClient.ConnectingText = $"正在连接[{host.Name}]，请稍等... {host.FullAddress}";
             #endregion
 
