@@ -49,16 +49,16 @@
             this.pnlBottom = new MetroFramework.Controls.MetroPanel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.pnlHost = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
-            this.txtRemoteProgram = new System.Windows.Forms.TextBox();
-            this.lbCopy = new MetroFramework.Controls.MetroLabel();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.chShareAllDisk = new MetroFramework.Controls.MetroToggle();
             this.gbDisks = new System.Windows.Forms.GroupBox();
             this.flpDisks = new System.Windows.Forms.FlowLayoutPanel();
             this.metroCheckBox1 = new MetroFramework.Controls.MetroCheckBox();
+            this.txtRemoteProgram = new System.Windows.Forms.TextBox();
             this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
             this.chShareClipboard = new MetroFramework.Controls.MetroToggle();
+            this.lbCopy = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numSort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -316,35 +316,6 @@
             this.pnlHost.VerticalScrollbarHighlightOnWheel = false;
             this.pnlHost.VerticalScrollbarSize = 10;
             // 
-            // metroLabel8
-            // 
-            this.metroLabel8.AutoSize = true;
-            this.metroLabel8.Location = new System.Drawing.Point(26, 94);
-            this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(79, 19);
-            this.metroLabel8.TabIndex = 38;
-            this.metroLabel8.Text = "仅启动程序";
-            // 
-            // txtRemoteProgram
-            // 
-            this.txtRemoteProgram.Location = new System.Drawing.Point(108, 94);
-            this.txtRemoteProgram.Name = "txtRemoteProgram";
-            this.txtRemoteProgram.Size = new System.Drawing.Size(265, 21);
-            this.txtRemoteProgram.TabIndex = 36;
-            // 
-            // lbCopy
-            // 
-            this.lbCopy.AutoSize = true;
-            this.lbCopy.ForeColor = System.Drawing.Color.Blue;
-            this.lbCopy.Location = new System.Drawing.Point(270, 28);
-            this.lbCopy.Name = "lbCopy";
-            this.lbCopy.Size = new System.Drawing.Size(45, 19);
-            this.lbCopy.TabIndex = 23;
-            this.lbCopy.Text = "[复制]";
-            this.lbCopy.UseCustomForeColor = true;
-            this.lbCopy.Visible = false;
-            this.lbCopy.Click += new System.EventHandler(this.lbCopy_Click);
-            // 
             // metroLabel9
             // 
             this.metroLabel9.AutoSize = true;
@@ -353,6 +324,15 @@
             this.metroLabel9.Size = new System.Drawing.Size(93, 19);
             this.metroLabel9.TabIndex = 49;
             this.metroLabel9.Text = "共享所有磁盘";
+            // 
+            // metroLabel8
+            // 
+            this.metroLabel8.AutoSize = true;
+            this.metroLabel8.Location = new System.Drawing.Point(26, 94);
+            this.metroLabel8.Name = "metroLabel8";
+            this.metroLabel8.Size = new System.Drawing.Size(79, 19);
+            this.metroLabel8.TabIndex = 38;
+            this.metroLabel8.Text = "仅启动程序";
             // 
             // chShareAllDisk
             // 
@@ -395,6 +375,13 @@
             this.metroCheckBox1.UseSelectable = true;
             this.metroCheckBox1.UseVisualStyleBackColor = true;
             // 
+            // txtRemoteProgram
+            // 
+            this.txtRemoteProgram.Location = new System.Drawing.Point(108, 94);
+            this.txtRemoteProgram.Name = "txtRemoteProgram";
+            this.txtRemoteProgram.Size = new System.Drawing.Size(265, 21);
+            this.txtRemoteProgram.TabIndex = 36;
+            // 
             // metroLabel10
             // 
             this.metroLabel10.AutoSize = true;
@@ -416,6 +403,19 @@
             this.chShareClipboard.UseSelectable = true;
             this.chShareClipboard.UseVisualStyleBackColor = true;
             // 
+            // lbCopy
+            // 
+            this.lbCopy.AutoSize = true;
+            this.lbCopy.ForeColor = System.Drawing.Color.Blue;
+            this.lbCopy.Location = new System.Drawing.Point(270, 28);
+            this.lbCopy.Name = "lbCopy";
+            this.lbCopy.Size = new System.Drawing.Size(45, 19);
+            this.lbCopy.TabIndex = 23;
+            this.lbCopy.Text = "[复制]";
+            this.lbCopy.UseCustomForeColor = true;
+            this.lbCopy.Visible = false;
+            this.lbCopy.Click += new System.EventHandler(this.lbCopy_Click);
+            // 
             // RemoteHostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -429,6 +429,7 @@
             this.Name = "RemoteHostForm";
             this.Resizable = false;
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "远程主机配置";
             this.Load += new System.EventHandler(this.RemoteHostForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numSort)).EndInit();

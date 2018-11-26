@@ -191,6 +191,7 @@
             this.Controls.Add(this.txtUser);
             this.Name = "GlobalSettingForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "全局设置";
             this.Load += new System.EventHandler(this.GlobalSettingForm_Load);
             this.gbDisks.ResumeLayout(false);
