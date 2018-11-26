@@ -6,9 +6,9 @@
 
 效果图如下：
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/17327981.jpg)
+![效果-主界面](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/%E6%95%88%E6%9E%9C-%E4%B8%BB%E7%95%8C%E9%9D%A2.png)
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/98245363.jpg)
+![效果-打开远程连接](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/%E6%95%88%E6%9E%9C-%E6%89%93%E5%BC%80%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5.png)
 
 
 ## 1、什么是 MSTSC (Microsoft terminal services client) ？
@@ -23,19 +23,21 @@ MSTSC 还有一种说法，Microsoft Telnet Screen Control ，即“微软远程
 ## 2、赶紧来添加第一个远程桌面连接 ？
 点击左下角的 `添加远程主机` 来，开启 `是否为父级` 选项，起个 `名字` 并 `保存` 来添加您的一个父级(分组)节点，譬如
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/44019779.jpg)
+![MSTSC](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/MSTSC.png)
 
 再次点击点击左下角的 `添加远程主机` 来新建您的第一个连接，假定您已熟悉 MSTSC 相关设置，那么下面这个配置也难不住您了
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/23527136.jpg)
+![样例-添加父节点](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/%E6%A0%B7%E4%BE%8B-%E6%B7%BB%E5%8A%A0%E7%88%B6%E8%8A%82%E7%82%B9.png)
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/75694214.jpg)
+![样例-添加子节点](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/%E6%A0%B7%E4%BE%8B-%E6%B7%BB%E5%8A%A0%E5%AD%90%E8%8A%82%E7%82%B9.png)
 
 单击此方块即可连接服务器，请确保网络无阻哦，一般来说 MSTSC 能连上，本工具同样可以
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/42893125.jpg)
+![样例-显示新增的配置](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/%E6%A0%B7%E4%BE%8B-%E6%98%BE%E7%A4%BA%E6%96%B0%E5%A2%9E%E7%9A%84%E9%85%8D%E7%BD%AE.png)
 
-![](http://olhzls0dg.bkt.clouddn.com/18-5-8/6584562.jpg)
+![样例-正在连接](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/%E6%A0%B7%E4%BE%8B-%E6%AD%A3%E5%9C%A8%E8%BF%9E%E6%8E%A5.png)
+
+![样例-连接成功](https://github.com/wang9563/RemoteDesktopManage/blob/master/Images/%E6%A0%B7%E4%BE%8B-%E8%BF%9E%E6%8E%A5%E6%88%90%E5%8A%9F.png)
 
 好了，基本上您已经掌握如何使用此工具了
 
