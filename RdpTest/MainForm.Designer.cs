@@ -45,6 +45,7 @@
             this.menuTabPage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tmiCloseHost = new System.Windows.Forms.ToolStripMenuItem();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
+            this.btnGlobalSetting = new MetroFramework.Controls.MetroLink();
             this.tabMain.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.pnlSetting.SuspendLayout();
@@ -92,6 +93,7 @@
             // pnlSetting
             // 
             this.pnlSetting.Controls.Add(this.btnAbout);
+            this.pnlSetting.Controls.Add(this.btnGlobalSetting);
             this.pnlSetting.Controls.Add(this.btnAddRemoteHost);
             this.pnlSetting.Controls.Add(this.btnRefresh);
             this.pnlSetting.Controls.Add(this.btnChangeStyle);
@@ -110,7 +112,7 @@
             // btnAbout
             // 
             this.btnAbout.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnAbout.Location = new System.Drawing.Point(268, 0);
+            this.btnAbout.Location = new System.Drawing.Point(355, 0);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(67, 37);
             this.btnAbout.TabIndex = 5;
@@ -214,6 +216,18 @@
             // 
             this.metroStyleManager.Owner = this;
             // 
+            // btnGlobalSetting
+            // 
+            this.btnGlobalSetting.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnGlobalSetting.Location = new System.Drawing.Point(268, 0);
+            this.btnGlobalSetting.Name = "btnGlobalSetting";
+            this.btnGlobalSetting.Size = new System.Drawing.Size(87, 37);
+            this.btnGlobalSetting.TabIndex = 7;
+            this.btnGlobalSetting.Text = "全局配置";
+            this.btnGlobalSetting.UseSelectable = true;
+            this.btnGlobalSetting.UseVisualStyleBackColor = true;
+            this.btnGlobalSetting.Click += new System.EventHandler(this.btnGlobalSetting_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -258,5 +272,6 @@
         private System.Windows.Forms.ToolStripMenuItem tmiCloseHost;
         private MetroFramework.Components.MetroStyleManager metroStyleManager;
         private MetroFramework.Controls.MetroLink btnAbout;
+        private MetroFramework.Controls.MetroLink btnGlobalSetting;
     }
 }

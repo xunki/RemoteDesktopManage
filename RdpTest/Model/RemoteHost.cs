@@ -1,4 +1,6 @@
-﻿namespace RdpTest.Model
+﻿using Newtonsoft.Json;
+
+namespace RdpTest.Model
 {
     public class RemoteHost
     {
@@ -16,6 +18,11 @@
         public int ParentId { get; set; }
 
         public string RemoteProgram { get; set; }
+
+        public string ExtJson { get; set; } = "";
+
+        private HostExt _ext;
+        public HostExt Ext => _ext ?? (_ext = JsonConvert.DeserializeObject<HostExt>(ExtJson) ?? new HostExt());
 
     }
 }

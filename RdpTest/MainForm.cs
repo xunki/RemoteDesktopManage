@@ -10,6 +10,7 @@ using MetroFramework;
 using MetroFramework.Controls;
 using MetroFramework.Forms;
 using MSTSCLib;
+using Newtonsoft.Json;
 using RdpTest.Control;
 using RdpTest.Model;
 
@@ -23,9 +24,12 @@ namespace RdpTest
 
             //设置主题
             StyleManager = metroStyleManager;
-
             var style = (MetroColorStyle)Db.Connection.QueryFirstOrDefault<int>("SELECT FValue FROM MyConfig WHERE FKey='Style'");
             metroStyleManager.Style = style;
+
+            //获取全局默认设置
+            var globalConfig = Db.Connection.QueryFirstOrDefault<string>("SELECT FValue FROM MyConfig WHERE FKey='GlobalConfig'");
+            GlobalConfig.Instance = JsonConvert.DeserializeObject<GlobalConfig>(globalConfig) ?? new GlobalConfig();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -43,7 +47,7 @@ namespace RdpTest
             panelBody.Controls.Clear(); //清空原有
 
             var hosts = (List<RemoteHost>)Db.Connection.Query<RemoteHost>(
-                "SELECT Id,Name,Address,Port,User,Pwd,Sort,ParentId,RemoteProgram FROM RemoteHost");
+                "SELECT Id,Name,Address,Port,User,Pwd,Sort,ParentId,RemoteProgram,ExtJson FROM RemoteHost");
 
             //创建分组
             foreach (var hostGroup in hosts.Where(x => x.ParentId == 0).OrderByDescending(x => x.Sort))
@@ -106,6 +110,7 @@ namespace RdpTest
             rdpClient.UserName = host.User;
             rdpClient.AdvancedSettings2.ClearTextPassword = host.Pwd;
 
+            #region 远程模式 [桌面/仅程序]
             if (string.IsNullOrEmpty(host.RemoteProgram)) //普通远程桌面模式
             {
                 //映射键盘
@@ -131,6 +136,7 @@ namespace RdpTest
                     tabMain.TabPages.Remove(page);
                 };
             }
+            #endregion
 
             /* 因为分辨率比例问题，缩放效果并不怎么样
                rdpClient.Width = Screen.PrimaryScreen.Bounds.Width;
@@ -139,11 +145,36 @@ namespace RdpTest
              */
 
             //偏好设置
-            ((IMsRdpClientNonScriptable5)rdpClient.GetOcx()).PromptForCredentials = false;
+            var clientNonScriptable = (IMsRdpClientNonScriptable5)rdpClient.GetOcx();
+            clientNonScriptable.PromptForCredentials = false;
             rdpClient.AdvancedSettings9.EnableCredSspSupport = true;
             rdpClient.ColorDepth = 16;
-            rdpClient.AdvancedSettings9.RedirectDrives = true; //共享本地磁盘
             rdpClient.ConnectingText = $"正在连接[{host.Name}]，请稍等... {host.FullAddress}";
+
+            //是否共享剪切板
+            rdpClient.AdvancedSettings9.RedirectClipboard = host.Ext.ShareClipboard;
+
+            #region 共享本地磁盘 [可配置]
+            //是否共享所有本地磁盘 
+            rdpClient.AdvancedSettings9.RedirectDrives = host.Ext.ShareAllDisk;
+
+            //共享选中的本地磁盘
+            if (!rdpClient.AdvancedSettings9.RedirectDrives)
+            {
+                var diskList = host.Ext.ShareDiskList;
+                if (diskList?.Count > 0)
+                {
+                    var driveCollection = clientNonScriptable.DriveCollection;
+                    for (uint i = 0; i < driveCollection.DriveCount; i++)
+                    {
+                        var driveByIndex = driveCollection.DriveByIndex[i];
+                        var driveName = driveByIndex.Name.Substring(0, driveByIndex.Name.Length - 1);
+                        driveByIndex.RedirectionState = diskList.Contains(driveName);
+                    }
+                }
+            }
+            #endregion
+
             #endregion
 
             //连接远程桌面
@@ -189,6 +220,15 @@ namespace RdpTest
             var hostForm = new RemoteHostForm { StyleManager = metroStyleManager };
             if (hostForm.ShowDialog() == DialogResult.OK)
                 LoadHosts();
+        }
+
+        /// <summary>
+        /// 全局设置
+        /// </summary>
+        private void btnGlobalSetting_Click(object sender, EventArgs e)
+        {
+            var globalSettingForm = new GlobalSettingForm { StyleManager = metroStyleManager };
+            globalSettingForm.ShowDialog();
         }
 
         /// <summary>
@@ -395,8 +435,9 @@ namespace RdpTest
                 CloseHost(--count);
             }
         }
-        #endregion
 
+        #endregion
 
     }
 }
+

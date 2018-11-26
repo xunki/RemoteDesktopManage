@@ -43,6 +43,9 @@
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -67,6 +70,12 @@
       <DependentUpon>HostGroupBox.cs</DependentUpon>
     </Compile>
     <Compile Include="DbHelper.cs" />
+    <Compile Include="GlobalSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalSettingForm.Designer.cs">
+      <DependentUpon>GlobalSettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +84,8 @@
     </Compile>
     <Compile Include="MetroFramework\AssemblyRef.cs" />
     <Compile Include="MetroFramework\MetroFrameworkAssembly.cs" />
+    <Compile Include="Model\GlobalConfig.cs" />
+    <Compile Include="Model\HostExt.cs" />
     <Compile Include="Model\RemoteHost.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,6 +232,9 @@
     <Compile Include="MetroFramework\Native\WinCaret.cs" />
     <EmbeddedResource Include="Control\HostGroupBox.resx">
       <DependentUpon>HostGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalSettingForm.resx">
+      <DependentUpon>GlobalSettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
