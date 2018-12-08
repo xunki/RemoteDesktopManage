@@ -53,7 +53,13 @@ namespace RdpTest
             foreach (var hostGroup in hosts.Where(x => x.ParentId == 0).OrderByDescending(x => x.Sort))
             {
                 //建立分组
-                var hostGroupBox = new HostGroupBox { Dock = DockStyle.Top, Height = 100, Text = hostGroup.Name };
+                var hostGroupBox = new HostGroupBox { Dock = DockStyle.Top, Height = 100, Text = hostGroup.Name, ContextMenuStrip = menuGroup, Tag = hostGroup };
+                hostGroupBox.GropNameMouseDown += (sender, e) =>
+                {
+                    if (e.Button == MouseButtons.Right)
+                        _currSelectGroup = sender;
+                };
+
                 panelBody.Controls.Add(hostGroupBox);
 
                 //填充分组内容
@@ -69,7 +75,7 @@ namespace RdpTest
                         UseVisualStyleBackColor = true,
                         Tag = host,
                         AutoSize = true,
-                        ContextMenuStrip = menuTitle,
+                        ContextMenuStrip = menuHost,
                         StyleManager = metroStyleManager
                     };
                     title.Click += ConnectRemoteHost;
@@ -366,7 +372,7 @@ namespace RdpTest
                 _currSelectHost = (MetroTile)sender;
         }
 
-        private void tmiEdit_Click(object sender, EventArgs e)
+        private void tmiHostEdit_Click(object sender, EventArgs e)
         {
             if (_currSelectHost == null) return;
 
@@ -400,6 +406,31 @@ namespace RdpTest
             _currSelectHost = null;
         }
 
+
+        private HostGroupBox _currSelectGroup;
+
+        private void tmiGropEdit_Click(object sender, EventArgs e)
+        {
+            if (_currSelectGroup == null) return;
+
+            var host = (RemoteHost)_currSelectGroup.Tag;
+            var hostForm = new RemoteHostForm { StyleManager = metroStyleManager, RemoteHost = host };
+
+            if (hostForm.ShowDialog() == DialogResult.OK)
+                LoadHosts();
+        }
+
+        private void tmiGroupDelete_Click(object sender, EventArgs e)
+        {
+            if (_currSelectGroup == null) return;
+
+            var host = (RemoteHost)_currSelectGroup.Tag;
+            Db.Connection.Execute("DELETE FROM RemoteHost WHERE ParentId=" + host.Id);
+            Db.Connection.Execute("DELETE FROM RemoteHost WHERE Id=" + host.Id);
+
+            _currSelectGroup.Parent = null;
+            _currSelectGroup = null;
+        }
         #endregion
 
         #region 界面切换与唤醒 [切换映射键盘]
@@ -435,6 +466,7 @@ namespace RdpTest
                 CloseHost(--count);
             }
         }
+
 
         #endregion
 

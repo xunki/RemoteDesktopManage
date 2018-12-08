@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace RdpTest.Control
@@ -8,7 +9,11 @@ namespace RdpTest.Control
         public HostGroupBox()
         {
             InitializeComponent();
+
+            lbText.MouseDown += (sender, e) => GropNameMouseDown?.Invoke(this, e);
         }
+
+        public event Action<HostGroupBox, MouseEventArgs> GropNameMouseDown;
 
         private string _text = "";
         [Description("标题信息")]
@@ -25,6 +30,12 @@ namespace RdpTest.Control
         public void AddControl(System.Windows.Forms.Control control)
         {
             Body.Controls.Add(control);
+        }
+
+        public new ContextMenuStrip ContextMenuStrip
+        {
+            get => lbText.ContextMenuStrip;
+            set => lbText.ContextMenuStrip = value;
         }
     }
 }
