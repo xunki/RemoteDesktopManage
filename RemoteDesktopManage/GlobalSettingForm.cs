@@ -23,8 +23,8 @@ namespace RdpTest
             txtUser.Text = GlobalConfig.Instance.User;
             txtPwd.Text = GlobalConfig.Instance.Pwd;
 
-            chShareClipboard.StyleManager = StyleManager;
-            chShareClipboard.Checked = GlobalConfig.Instance.ShareClipboard;
+            chConnectSession0.StyleManager = StyleManager;
+            chConnectSession0.Checked = GlobalConfig.Instance.ConnectSession0;
 
             chShareAllDisk.StyleManager = StyleManager;
             chShareAllDisk.CheckedChanged += (o, args) => gbDisks.Enabled = !chShareAllDisk.Checked;
@@ -54,7 +54,7 @@ namespace RdpTest
             {
                 User = txtUser.Text.Trim(),
                 Pwd = txtPwd.Text.Trim(),
-                ShareClipboard = chShareClipboard.Checked,
+                ConnectSession0 = chConnectSession0.Checked,
                 ShareAllDisk = chShareAllDisk.Checked,
                 ShareDiskList = flpDisks.Controls.OfType<MetroCheckBox>().Where(ch => ch.Checked).Select(ch => ch.Text).ToList()
             };

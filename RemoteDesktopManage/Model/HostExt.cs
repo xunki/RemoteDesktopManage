@@ -7,7 +7,7 @@ namespace RdpTest.Model
         /// <summary>
         /// 共享剪切板
         /// </summary>
-        public bool ShareClipboard { get; set; } 
+        public bool ConnectSession0 { get; set; } 
 
         /// <summary>
         /// 共享所有磁盘

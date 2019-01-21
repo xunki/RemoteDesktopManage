@@ -33,7 +33,7 @@
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.chShareClipboard = new MetroFramework.Controls.MetroToggle();
+            this.chConnectSession0 = new MetroFramework.Controls.MetroToggle();
             this.gbDisks = new System.Windows.Forms.GroupBox();
             this.flpDisks = new System.Windows.Forms.FlowLayoutPanel();
             this.metroCheckBox1 = new MetroFramework.Controls.MetroCheckBox();
@@ -41,6 +41,7 @@
             this.chShareAllDisk = new MetroFramework.Controls.MetroToggle();
             this.btnCancel = new MetroFramework.Controls.MetroButton();
             this.btnSave = new MetroFramework.Controls.MetroButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.gbDisks.SuspendLayout();
             this.flpDisks.SuspendLayout();
             this.SuspendLayout();
@@ -83,21 +84,21 @@
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.Location = new System.Drawing.Point(209, 132);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(79, 19);
+            this.metroLabel1.Size = new System.Drawing.Size(72, 19);
             this.metroLabel1.TabIndex = 41;
-            this.metroLabel1.Text = "共享剪切板";
+            this.metroLabel1.Text = "连接会话0";
             // 
-            // chShareClipboard
+            // chConnectSession0
             // 
-            this.chShareClipboard.DisplayStatus = false;
-            this.chShareClipboard.Location = new System.Drawing.Point(293, 131);
-            this.chShareClipboard.Name = "chShareClipboard";
-            this.chShareClipboard.Size = new System.Drawing.Size(75, 24);
-            this.chShareClipboard.TabIndex = 40;
-            this.chShareClipboard.Text = "~StatusOff";
-            this.chShareClipboard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chShareClipboard.UseSelectable = true;
-            this.chShareClipboard.UseVisualStyleBackColor = true;
+            this.chConnectSession0.DisplayStatus = false;
+            this.chConnectSession0.Location = new System.Drawing.Point(293, 131);
+            this.chConnectSession0.Name = "chConnectSession0";
+            this.chConnectSession0.Size = new System.Drawing.Size(75, 24);
+            this.chConnectSession0.TabIndex = 40;
+            this.chConnectSession0.Text = "~StatusOff";
+            this.chConnectSession0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chConnectSession0.UseSelectable = true;
+            this.chConnectSession0.UseVisualStyleBackColor = true;
             // 
             // gbDisks
             // 
@@ -173,18 +174,29 @@
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(211, 155);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 12);
+            this.label1.TabIndex = 51;
+            this.label1.Text = "仅在2003有效";
+            // 
             // GlobalSettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 357);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.chShareAllDisk);
             this.Controls.Add(this.gbDisks);
             this.Controls.Add(this.metroLabel1);
-            this.Controls.Add(this.chShareClipboard);
+            this.Controls.Add(this.chConnectSession0);
             this.Controls.Add(this.metroLabel7);
             this.Controls.Add(this.metroLabel6);
             this.Controls.Add(this.txtPwd);
@@ -209,7 +221,7 @@
         private System.Windows.Forms.TextBox txtPwd;
         private System.Windows.Forms.TextBox txtUser;
         private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroToggle chShareClipboard;
+        private MetroFramework.Controls.MetroToggle chConnectSession0;
         private System.Windows.Forms.GroupBox gbDisks;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroToggle chShareAllDisk;
@@ -217,5 +229,6 @@
         private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
         private MetroFramework.Controls.MetroButton btnCancel;
         private MetroFramework.Controls.MetroButton btnSave;
+        private System.Windows.Forms.Label label1;
     }
 }

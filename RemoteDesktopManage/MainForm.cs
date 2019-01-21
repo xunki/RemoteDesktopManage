@@ -157,8 +157,8 @@ namespace RdpTest
             rdpClient.ColorDepth = 16;
             rdpClient.ConnectingText = $"正在连接[{host.Name}]，请稍等... {host.FullAddress}";
 
-            //是否共享剪切板
-            rdpClient.AdvancedSettings9.RedirectClipboard = host.Ext.ShareClipboard;
+            //是否连接会话0 (仅在 Windows Server 2003 中有效)
+            rdpClient.AdvancedSettings9.ConnectToAdministerServer = host.Ext.ConnectSession0;
 
             #region 共享本地磁盘 [可配置]
             //是否共享所有本地磁盘 

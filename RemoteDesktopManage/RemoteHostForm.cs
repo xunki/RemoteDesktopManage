@@ -26,11 +26,11 @@ namespace RdpTest
         {
             //设置主题
             chIsParent.StyleManager = StyleManager;
-            chShareClipboard.StyleManager = StyleManager;
+            chConnectSession0.StyleManager = StyleManager;
             chShareAllDisk.StyleManager = StyleManager;
 
             //共享设置
-            chShareClipboard.Checked = GlobalConfig.Instance.ShareClipboard;
+            chConnectSession0.Checked = GlobalConfig.Instance.ConnectSession0;
             chShareAllDisk.CheckedChanged += (o, args) => gbDisks.Enabled = !chShareAllDisk.Checked;
             chShareAllDisk.Checked = GlobalConfig.Instance.ShareAllDisk;
 
@@ -85,7 +85,7 @@ namespace RdpTest
             txtPwd.Text = RemoteHost.Pwd;
             txtRemoteProgram.Text = RemoteHost.RemoteProgram;
 
-            chShareClipboard.Checked = RemoteHost.Ext.ShareClipboard;
+            chConnectSession0.Checked = RemoteHost.Ext.ConnectSession0;
             chShareAllDisk.Checked = RemoteHost.Ext.ShareAllDisk;
             foreach (var ch in flpDisks.Controls.OfType<MetroCheckBox>())
             {
@@ -153,7 +153,7 @@ namespace RdpTest
                 host.Pwd = txtPwd.Text;
                 host.RemoteProgram = txtRemoteProgram.Text.Trim();
 
-                host.Ext.ShareClipboard = chShareClipboard.Checked;
+                host.Ext.ConnectSession0 = chConnectSession0.Checked;
                 host.Ext.ShareAllDisk = chShareAllDisk.Checked;
                 host.Ext.ShareDiskList = flpDisks.Controls.OfType<MetroCheckBox>().Where(ch => ch.Checked).Select(ch => ch.Text).ToList();
 
