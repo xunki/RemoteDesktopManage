@@ -63,7 +63,4 @@ MSTSC 还有一种说法，Microsoft Telnet Screen Control ，即“微软远程
 
 下载项目源码，修改 Framework 版本为 4.5 再编译，或者修改为 4.0 但需要单独引用 `Microsoft.Bcl` 编译后即可
 
-
-或者
-
-直接下载本项目源码，本项目使用 [WTFPL 开源协议](LICENSE)，所以。。您怎么喜欢怎么来吧！
+本项目使用 [WTFPL 开源协议](LICENSE)，所以。。您怎么喜欢怎么来吧！
