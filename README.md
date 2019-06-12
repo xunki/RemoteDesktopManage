@@ -57,7 +57,12 @@ MSTSC 还有一种说法，Microsoft Telnet Screen Control ，即“微软远程
 
 ## 4、开始作死
 
-[下载最新的 Releases 程序玩一把？](https://github.com/wang9563/RemoteDesktopManage/releases)
+[下载最新的 Releases 程序玩一把？](https://github.com/wang9563/RemoteDesktopManage/releases) `请安装 .NET Framework 4.6.1 及以上版本后使用`
+
+**因为 .NET Framework 向下兼容，所以电脑上只需装最新的 net48 即可，需要对低版本 .NET Framework 支持？**
+
+下载项目源码，修改 Framework 版本为 4.5 再编译，或者修改为 4.0 但需要单独引用 `Microsoft.Bcl` 编译后即可
+
 
 或者
 
