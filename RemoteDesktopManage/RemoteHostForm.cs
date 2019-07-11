@@ -22,7 +22,7 @@ namespace RdpTest
 
         private bool IsModify => RemoteHost != null;
 
-        private void RemoteHostForm_Load(object sender, System.EventArgs e)
+        private void RemoteHostForm_Load(object sender, EventArgs e)
         {
             //设置主题
             chIsParent.StyleManager = StyleManager;
@@ -33,7 +33,9 @@ namespace RdpTest
             chConnectSession0.Checked = GlobalConfig.Instance.ConnectSession0;
             chShareAllDisk.CheckedChanged += (o, args) => gbDisks.Enabled = !chShareAllDisk.Checked;
             chShareAllDisk.Checked = GlobalConfig.Instance.ShareAllDisk;
-
+            txtUser.Text = GlobalConfig.Instance.User;
+            txtPwd.Text = GlobalConfig.Instance.Pwd;
+            
             //可用磁盘
             flpDisks.Controls.Clear();
             foreach (var driveInfo in DriveInfo.GetDrives())
@@ -62,7 +64,8 @@ namespace RdpTest
 
         private void LoadParentComboBox()
         {
-            var parents = Db.Connection.Query<RemoteHost>("SELECT Id,Name FROM RemoteHost WHERE ParentId=0 ORDER BY Sort");
+            var parents =
+                Db.Connection.Query<RemoteHost>("SELECT Id,Name FROM RemoteHost WHERE ParentId=0 ORDER BY Sort");
             cbParent.DisplayMember = "Name";
             cbParent.ValueMember = "Id";
             cbParent.DataSource = parents;
@@ -132,6 +135,7 @@ namespace RdpTest
                 txtName.SelectAll();
                 return;
             }
+
             if (!chIsParent.Checked && cbParent.SelectedIndex < 0)
             {
                 MetroMessageBox.Show(this, "请选择父级！");
@@ -155,7 +159,8 @@ namespace RdpTest
 
                 host.Ext.ConnectSession0 = chConnectSession0.Checked;
                 host.Ext.ShareAllDisk = chShareAllDisk.Checked;
-                host.Ext.ShareDiskList = flpDisks.Controls.OfType<MetroCheckBox>().Where(ch => ch.Checked).Select(ch => ch.Text).ToList();
+                host.Ext.ShareDiskList = flpDisks.Controls.OfType<MetroCheckBox>().Where(ch => ch.Checked)
+                    .Select(ch => ch.Text).ToList();
 
                 host.ExtJson = JsonConvert.SerializeObject(host.Ext);
             }
@@ -164,7 +169,6 @@ namespace RdpTest
                 IsModify
                     ? @"UPDATE RemoteHost SET Name=@Name,Address=@Address,Port=@Port,User=@User,Pwd=@Pwd,Sort=@Sort,ParentId=@ParentId,
                         RemoteProgram=@RemoteProgram,ExtJson=@ExtJson WHERE Id=" + RemoteHost.Id
-
                     : @"INSERT INTO RemoteHost(Name,Address,Port,User,Pwd,Sort,ParentId,RemoteProgram,ExtJson) 
                         VALUES(@Name,@Address,@Port,@User,@Pwd,@Sort,@ParentId,@RemoteProgram,@ExtJson)",
                 host);
@@ -172,7 +176,5 @@ namespace RdpTest
 
             DialogResult = DialogResult.OK;
         }
-
-
     }
 }
