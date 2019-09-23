@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 
 namespace RdpTest
@@ -15,28 +16,39 @@ namespace RdpTest
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += (sender, e) => { MessageBox.Show(e.Exception.ToString(), "发生异常"); };
 
-            //检查本程序如果有已启动的其他实例，则弹出该界面窗口
-            var currProcess = Process.GetCurrentProcess();
-            var process = Process.GetProcessesByName(currProcess.ProcessName);
-            if (process.Length > 1) 
+            MainForm mainForm;
+            try
             {
-                var hWnd = FindWindow(null, "远程桌面管理");
-                GetWindowThreadProcessId(hWnd, out var pid);
-
-                foreach (var p in process)
+                //检查本程序如果有已启动的其他实例，则弹出该界面窗口
+                var currProcess = Process.GetCurrentProcess();
+                var process = Process.GetProcessesByName(currProcess.ProcessName);
+                if (process.Length > 1)
                 {
-                    if (pid == p.Id) continue; 
+                    var hWnd = FindWindow(null, "远程桌面管理");
+                    GetWindowThreadProcessId(hWnd, out var pid);
 
-                    //先最小化再最大化，否则有时无法激活
-                    ShowWindowAsync(hWnd, 6); 
-                    ShowWindowAsync(hWnd, 3);
-                    return;
+                    foreach (var p in process)
+                    {
+                        if (pid == p.Id) continue;
+
+                        //先最小化再最大化，否则有时无法激活
+                        ShowWindowAsync(hWnd, 6);
+                        ShowWindowAsync(hWnd, 3);
+                        return;
+                    }
                 }
+                mainForm = new MainForm();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "启动发生异常");
+                return;
             }
 
             //启动主界面
-            Application.Run(new MainForm());
+            Application.Run(mainForm);
         }
 
         ///<summary>
@@ -52,9 +64,7 @@ namespace RdpTest
         /// <summary>
         /// 根据窗口标题查找窗体
         /// </summary>
-        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "FindWindow")]
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-
     }
 }
